@@ -9,11 +9,14 @@ value _ = 0
 
 match :: Char -> Char -> Int
 match 'A' 'X' = 3
-match 'B' 'Y' = 3
-match 'C' 'Z' = 3
-match 'A' 'Y' = 6
-match 'B' 'Z' = 6
-match 'C' 'X' = 6
+match 'A' 'Y' = 1
+match 'A' 'Z' = 2
+match 'B' 'X' = 1
+match 'B' 'Y' = 2
+match 'B' 'Z' = 3
+match 'B' 'X' = 1
+match 'B' 'Y' = 2
+match 'B' 'Z' = 3
 match _ _ = 0
 
 eval :: (Char, Char) -> Int
