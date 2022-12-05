@@ -1,11 +1,12 @@
+import Debug.Trace
+
 type Pair = ((Int, Int), (Int, Int))
 
 contained :: [Int] -> [Int] -> Bool
-contained (x:xs) [] = False
-contained [] _ = True
 contained (x:xs) (y:ys)
-    | x /= y = contained (x : xs) ys
-    | otherwise = contained xs ys
+    | x /= y = (not $ null (filter (==x) ys)) || contained xs (y:ys)
+    | otherwise = True
+contained _ _ = False
 
 splitOn :: Char -> String -> [String]
 splitOn _ [] = []
@@ -21,12 +22,12 @@ pairToInt x = (read y :: Int, read z :: Int)
     where [y, z] = splitOn '-' x
 
 eval :: Pair -> Bool
-eval ((a, b), (c, d)) = contained [a..b] [c..d] || contained [c..d] [a..b]
+eval ((a, b), (c, d)) = contained [a..b] [c..d]
 
 solution :: String -> Int
 solution x = sum (map (\x -> if eval x then 1 else 0) (toPair x))
 
---main = print (toPair "2-4,6-8\n2-3,4-5\n5-7,7-9\n2-8,3-7\n6-6,4-6\n2-6,4-8")
+--main = print (solution "2-4,6-8\n2-3,4-5\n5-7,7-9\n2-8,3-7\n6-6,4-6\n2-6,4-8")
 --main = print (pairToInt "10-20")
 --main = print (splitOn '-' "10-20")
 --main = print (contained [5..10] [5..20])
