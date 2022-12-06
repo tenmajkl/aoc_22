@@ -22,7 +22,7 @@ generate :: Int -> Cargo
 generate x = map (const []) [0..(x - 1)]
 
 evalCommand :: String -> Cargo -> Cargo
-evalCommand command cargo = modify (modify cargo from (drop count (cargo !! from))) to ((reverse (take count (cargo !! from))) ++ (cargo !! to))
+evalCommand command cargo = modify (modify cargo from (drop count (cargo !! from))) to ((take count (cargo !! from)) ++ (cargo !! to))
     where (count, from, to) = parseCommand command
 
 parseCommand :: String -> (Int, Int, Int)
